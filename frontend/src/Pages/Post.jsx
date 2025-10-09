@@ -39,7 +39,7 @@ function Post() {
         file.forEach(f => formData.append("media", f));
       }
 
-      const res = await fetch("http://localhost:5000/api/posts", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/posts`, {
         method: "POST",
         body: formData,
       });
