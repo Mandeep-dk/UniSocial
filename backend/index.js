@@ -44,21 +44,21 @@ app.use('/api/trends', trendRoutes);
 app.use('/api/contact', contactRoutes);
 
 // For ES Modules __dirname fix
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 // ✅ Serve frontend build in production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  app.get(/(.*)/, (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
-  });
-} else {
-  app.get("/", (req, res) => {
-    res.send("API is running...");
-  });
-}
+//   app.get(/(.*)/, (req, res) => {
+//     res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
+//   });
+// } else {
+//   app.get("/", (req, res) => {
+//     res.send("API is running...");
+//   });
+// }
 
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on http://localhost:${PORT}`);
