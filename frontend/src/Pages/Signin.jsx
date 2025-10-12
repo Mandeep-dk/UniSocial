@@ -80,7 +80,7 @@ function Signin() {
 
                         <div className="flex text-sm  items-center mt-2">
 
-                            <p className="text-gray-500">Already have an account?  -   </p><a href="/" className="ml-2 underline">Sign up</a>
+                            <p className="text-gray-500">Already have an account?  -   </p><a href="/Signup" className="ml-2 underline">Sign up</a>
                         </div>
                     </div>
                     <button type="submit" className='w-full bg-rose-500 rounded-full p-2 text-white block mt-3'>Sign In</button>

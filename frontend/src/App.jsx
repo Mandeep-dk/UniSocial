@@ -41,6 +41,8 @@ function App() {
         setProfileLoading(true);
         try {
           const res = await getUsername(currentUser.uid);
+          console.log("Profile API response:", res.data);
+
           if (res && res.data) {
             console.log("app.jsx", res.data);
             setProfileCompleted(res.data.profileCompleted);
@@ -67,6 +69,8 @@ function App() {
     if (user) {
       try {
         const res = await getUsername(user.uid);
+        console.log("Profile API response:", res.data);
+
         if (res && res.data) {
           setProfileCompleted(res.data.profileCompleted);
         }
@@ -91,9 +95,9 @@ function App() {
 
       <Routes>
         {/* Root route */}
-        <Route path="/landing" element={<Main/>}/>
+        <Route path="/" element={<Main/>}/>
         <Route
-          path="/"
+          path="/Signup"
           element={
             !user ? (
               <Signup />
