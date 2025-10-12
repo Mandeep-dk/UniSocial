@@ -1,19 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
+// const multer = require('multer');
+const { upload } = require('../cloudinary'); 
 const UserProfile = require('../models/UserProfile');
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // folder to save images
-  },
-  filename: function (req, file, cb) {
-    const uniqueName = Date.now() + '-' + file.originalname;
-    cb(null, uniqueName);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'uploads/'); // folder to save images
+//   },
+//   filename: function (req, file, cb) {
+//     const uniqueName = Date.now() + '-' + file.originalname;
+//     cb(null, uniqueName);
+//   },
+// });
 
-const upload = multer({ storage });
+// const upload = multer({ storage });
 
 
 router.post('/profile', async (req, res) => {

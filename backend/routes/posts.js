@@ -2,32 +2,33 @@ const express = require('express');
 const router = express.Router();
 const UserProfile = require('../models/UserProfile');
 const Post = require('../models/Post');
-const multer = require('multer');
+// const multer = require('multer');
+const { upload } = require('../cloudinary'); 
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/'); 
-  },
-  filename: function (req, file, cb) {
-    const uniqueName = Date.now() + '-' + file.originalname;
-    cb(null, uniqueName);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'uploads/'); 
+//   },
+//   filename: function (req, file, cb) {
+//     const uniqueName = Date.now() + '-' + file.originalname;
+//     cb(null, uniqueName);
+//   },
+// });
 
-const upload = multer({
-  storage,
-  fileFilter: (req, file, cb) => {
-    const allowedTypes = [
-      'image/jpeg', 'image/png', 'image/jpg', 'image/gif',
-      'video/mp4', 'video/webm', 'video/ogg'
-    ];
-    if (allowedTypes.includes(file.mimetype)) {
-      cb(null, true);
-    } else {
-      cb(new Error('Only images and videos are allowed'));
-    }
-  }
-});
+// const upload = multer({
+//   storage,
+//   fileFilter: (req, file, cb) => {
+//     const allowedTypes = [
+//       'image/jpeg', 'image/png', 'image/jpg', 'image/gif',
+//       'video/mp4', 'video/webm', 'video/ogg'
+//     ];
+//     if (allowedTypes.includes(file.mimetype)) {
+//       cb(null, true);
+//     } else {
+//       cb(new Error('Only images and videos are allowed'));
+//     }
+//   }
+// });
 
 router.post('/', upload.array('media', 5), async(req, res)=>{
     const {uid, title, content, tags} = req.body;
