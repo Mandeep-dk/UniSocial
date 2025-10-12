@@ -50,7 +50,7 @@ function Header() {
                 <div>
                     <button onClick={handleDropDown}>
                         <img
-                            src={profilePic ? `http://localhost:5000/${profilePic}` : DefaultPic}
+                            src={profilePic ? `${profilePic}` : DefaultPic}
                             className="h-19 w-19 mt-2 rounded-full object-cover border-2 border-gray-200 mr-5"
                             alt='profile'
                         />

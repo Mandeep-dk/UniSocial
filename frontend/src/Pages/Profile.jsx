@@ -39,7 +39,7 @@ function Profile({ onProfileComplete }) {
 
     if (!res2.exists) {
       const interestsArray = interests.split(',').map(item => item.trim()).filter(item => item);
-      const res = await axios.post("http://localhost:5000/api/users/profile", {
+      const res = await axios.post("https://unisocial-8gc2.onrender.com/api/users/profile", {
         uid,
         username,
         branch,

@@ -128,7 +128,7 @@ function ProfilePage() {
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
               {profilePic ? (
                 <img
-                  src={`http://localhost:5000/${data.profilePic}`}
+                  src={`${data.profilePic}`}
                   className="border-4 border-white rounded-full h-32 w-32 object-cover shadow-lg ring-4 ring-slate-100"
                   alt="Profile"
                 />
@@ -252,7 +252,7 @@ function ProfilePage() {
                       <img
                         src={
                           post?.author?.profilePic
-                            ? `http://localhost:5000/${post.author.profilePic}`
+                            ? `${post.author.profilePic}`
                             : DefaultPic
                         }
                         alt="Profile"

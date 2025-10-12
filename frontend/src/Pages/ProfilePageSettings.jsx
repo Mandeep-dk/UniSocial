@@ -280,7 +280,7 @@ function ProfilePageSettings() {
                   <h2 className='text-lg font-semibold mb-4'>Profile Picture</h2>
                   <div className='flex items-center gap-4'>
                     <img
-                      src={profilePic ? `http://localhost:5000/${profilePic}` : DefaultPic}
+                      src={profilePic ? `${profilePic}` : DefaultPic}
                       alt="Profile"
                       className="h-20 w-20 rounded-full object-cover border-2 border-gray-200"
                     />

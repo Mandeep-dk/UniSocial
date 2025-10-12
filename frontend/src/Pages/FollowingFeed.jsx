@@ -130,7 +130,7 @@ function FollowingFeed() {
                                             <img
                                                 src={
                                                     searchResult.author && searchResult.author.profilePic
-                                                        ? `http://localhost:5000/${searchResult.author.profilePic}`
+                                                        ? `${searchResult.author.profilePic}`
                                                         : DefaultPic
                                                 }
                                                 className="h-12 w-12 rounded-full object-cover border-2 border-gray-100"
@@ -227,7 +227,7 @@ function FollowingFeed() {
                                                     <img
                                                         src={
                                                             post.author && post.author.profilePic
-                                                                ? `http://localhost:5000/${post.author.profilePic}`
+                                                                ? `${post.author.profilePic}`
                                                                 : DefaultPic
                                                         }
                                                         className="h-12 w-12 rounded-full object-cover border-2 border-gray-100"

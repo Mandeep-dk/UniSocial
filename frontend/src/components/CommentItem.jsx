@@ -70,7 +70,7 @@ const CommentItem = ({ comment, onReply, onReact, replies, onDelete, onUpdate, c
                     <img
                         src={
                             currentUserData?.profilePic
-                                ? `http://localhost:5000/${currentUserData.profilePic.replace(/\\/g, "/")}`
+                                ? `${currentUserData.profilePic.replace(/\\/g, "/")}`
                                 : DefaultPic
                         }
                         alt="profile"

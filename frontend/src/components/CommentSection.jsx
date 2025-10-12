@@ -151,7 +151,7 @@ const CommentSection = ({ postId, currentUser }) => {
     const getProfilePicUrl = (profilePic) => {
         if (!profilePic) return '/default-avatar.png'; // Fallback image
         if (profilePic.startsWith('http')) return profilePic;
-        return `http://localhost:5000${profilePic}`; // Adjust based on your backend setup
+        return `${profilePic}`; // Adjust based on your backend setup
     };
 
     return (

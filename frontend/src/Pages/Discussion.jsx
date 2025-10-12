@@ -21,7 +21,7 @@ function Discussion() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/allPosts");
+        const res = await fetch("https://unisocial-8gc2.onrender.com/api/allPosts");
         const data = await res.json();
         setPosts(data);
         console.log(data)
@@ -106,7 +106,7 @@ function Discussion() {
                       <img
                         src={
                           searchResult.author && searchResult.author.profilePic
-                            ? `http://localhost:5000/${searchResult.author.profilePic}`
+                            ? `${searchResult.author.profilePic}`
                             : DefaultPic
                         }
                         className="h-12 w-12 rounded-full object-cover border-2 border-gray-100"
@@ -197,7 +197,7 @@ function Discussion() {
                           <img
                             src={
                               post.author && post.author.profilePic
-                                ? `http://localhost:5000/${post.author.profilePic}`
+                                ? `${post.author.profilePic}`
                                 : DefaultPic
                             }
                             className="h-12 w-12 rounded-full object-cover border-2 border-gray-100"

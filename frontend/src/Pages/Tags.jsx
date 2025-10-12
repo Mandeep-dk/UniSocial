@@ -39,7 +39,7 @@ function Tags() {
                             <div className="flex items-center gap-3">
                                <img
           className="h-12 w-12 rounded-full border border-gray-200 object-cover"
-          src={post.author.profilePic ? `http://localhost:5000/${post.author.profilePic}` : DefaultPic}
+          src={post.author.profilePic ? `${post.author.profilePic}` : DefaultPic}
           alt={post.author.username || "User"}
         />
                                 <h2 className="font-semibold text-lg">{post.author.username}</h2>

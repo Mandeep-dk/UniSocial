@@ -50,7 +50,7 @@ const SingleDiscussion = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/singlePost/${id}`);
+        const res = await fetch(`https://unisocial-8gc2.onrender.com/api/singlePost/${id}`);
         const data = await res.json();
         setPost(data);
 
@@ -131,7 +131,7 @@ const SingleDiscussion = () => {
               <div className="mt-4">
                 <div className="w-[400px]">
                   <img
-                    src={`http://localhost:5000/${images[currentIndex]}`}
+                    src={`${images[currentIndex]}`}
                     alt="slider"
                     className="w-full h-[250px]  rounded-xl bg-gray-100"
                   />
@@ -151,7 +151,7 @@ const SingleDiscussion = () => {
               <div className="mt-4">
                 <div className="w-[400px]">
                   <video
-                    src={`http://localhost:5000/${video[currentIndexVideo]}`}
+                    src={`${video[currentIndexVideo]}`}
                     alt="slider"
                      className="w-full h-full object-contain"
                           controls
@@ -176,7 +176,7 @@ const SingleDiscussion = () => {
                 {files.map((file, idx) => (
                   <a
                     key={idx}
-                    href={`http://localhost:5000/${file}`}
+                    href={`https://unisocial-8gc2.onrender.com/${file}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 underline block"
