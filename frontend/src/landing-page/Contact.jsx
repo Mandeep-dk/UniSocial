@@ -41,7 +41,7 @@ function Contact() {
                         <div className='space-y-4 sm:space-y-6'>
                             <div>
                                 <h3 className='font-semibold mb-1 sm:mb-2 text-base sm:text-lg'>Response Time</h3>
-                                <p className='text-gray-600 text-sm sm:text-base'>We typically respond within 24 hours</p>
+                                <p className='text-gray-600 text-sm sm:text-base'>I typically respond within 24 hours</p>
                             </div>
                             <div>
                                 <h3 className='font-semibold mb-1 sm:mb-2 text-base sm:text-lg'>Email</h3>

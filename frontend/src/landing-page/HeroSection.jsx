@@ -14,7 +14,7 @@ function HeroSection() {
             </p>
             <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto px-4'>
                 <button 
-                    onClick={() => navigate("/")} 
+                    onClick={() => navigate("/signup")} 
                     className='bg-rose-500 text-white px-6 sm:px-8 py-3 rounded-lg hover:bg-rose-600 transition text-sm sm:text-base w-full sm:w-auto'
                 >
                     Get Started

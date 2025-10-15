@@ -48,7 +48,7 @@ function About() {
                     </div>
 
                     <button 
-                        onClick={() => navigate("/")} 
+                        onClick={() => navigate("/signup")} 
                         className="border rounded-lg px-6 sm:px-8 py-2 sm:py-3 bg-rose-500 text-white hover:bg-rose-600 transition text-sm sm:text-base w-full sm:w-auto"
                     >
                         Sign up now and start the conversation!
