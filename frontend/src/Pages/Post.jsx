@@ -3,6 +3,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../auth/firebase';
 import Header from '../components/Header';
 import { ToastContainer, toast } from 'react-toastify';
+import { FileText, File } from 'lucide-react';
 
 function Post() {
   const [postTitle, setPostTitle] = useState('');
@@ -24,8 +25,7 @@ function Post() {
 
   const handleCreatePost = async () => {
     if (!postContent || !uid || !postTitle) {
-      toast.error("Please fill in all required fields", {autoClose: 2000});
-      // alert("Please fill in all required fields");
+      toast.error("Please fill in all required fields", { autoClose: 2000 });
       return;
     }
 
@@ -57,23 +57,40 @@ function Post() {
     }
   };
 
+  const getFileType = (file) => {
+    if (file.type.startsWith("image")) return "image";
+    if (file.type.startsWith("video")) return "video";
+    if (file.type === "application/pdf") return "pdf";
+    if (file.type.includes("word") || file.name.endsWith(".doc") || file.name.endsWith(".docx")) return "doc";
+    return "other";
+  };
+
   const handleFiles = (e) => {
     const selectedFiles = Array.from(e.target.files);
     setFile((prev) => [...prev, ...selectedFiles]);
 
-    const mediaFiles = selectedFiles.filter((file) =>
-      file.type.startsWith("image") || file.type.startsWith("video")
-    );
-
-    mediaFiles.forEach((file) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewImage((prev) => [...prev, { 
-          src: reader.result, 
-          type: file.type.startsWith("video") ? "video" : "image" 
+    selectedFiles.forEach((file) => {
+      const fileType = getFileType(file);
+      
+      if (fileType === "image" || fileType === "video") {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setPreviewImage((prev) => [...prev, {
+            src: reader.result,
+            type: fileType,
+            name: file.name
+          }]);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        // For documents, just store the file info
+        setPreviewImage((prev) => [...prev, {
+          src: null,
+          type: fileType,
+          name: file.name,
+          size: (file.size / 1024).toFixed(2) // Size in KB
         }]);
-      };
-      reader.readAsDataURL(file);
+      }
     });
   };
 
@@ -98,10 +115,16 @@ function Post() {
 
   const handleChange = (e) => {
     const input = e.target.value;
-    // Allow only A-Z, a-z, 0-9
     const filtered = input.replace(/[^A-Za-z0-9]/g, "");
     setInputTagValue(filtered)
   }
+
+  const getFileIcon = (type) => {
+    if (type === "pdf") {
+      return <FileText className="w-8 h-8 text-red-500" />;
+    }
+    return <File className="w-8 h-8 text-blue-500" />;
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -219,11 +242,11 @@ function Post() {
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Media Preview
               </label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {previewImage.map((media, index) => (
                   <div key={index} className="relative group">
                     {media.type === "video" ? (
-                      <div className="relative w-full h-24 bg-black rounded-lg shadow-sm overflow-hidden">
+                      <div className="relative w-full h-32 bg-black rounded-lg shadow-sm overflow-hidden">
                         <video
                           src={media.src}
                           className="w-full h-full object-contain"
@@ -234,16 +257,27 @@ function Post() {
                           Your browser does not support video playback.
                         </video>
                       </div>
-                    ) : (
+                    ) : media.type === "image" ? (
                       <img
                         src={media.src}
                         alt={`preview-${index}`}
-                        className="w-full h-24 object-cover rounded-lg shadow-sm"
+                        className="w-full h-24 object-contain rounded-lg shadow-sm"
                       />
+                    ) : (
+                      <div className="flex flex-col items-center justify-center bg-gray-50 border-2 border-gray-200 rounded-lg shadow-sm p-4 h-32 hover:bg-gray-100 transition-colors">
+                        {getFileIcon(media.type)}
+                        <span className="text-gray-700 text-sm font-medium mt-2 truncate w-full text-center px-2">
+                          {media.name}
+                        </span>
+                        <span className="text-gray-500 text-xs mt-1">
+                          {media.size} KB
+                        </span>
+                      </div>
                     )}
+
                     <button
                       onClick={() => removePreviewImage(index)}
-                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600 z-10"
+                      className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-6 h-6 text-xs flex items-center justify-center shadow-lg transition-colors z-10"
                     >
                       ✕
                     </button>
