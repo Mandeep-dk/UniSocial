@@ -56,7 +56,7 @@ function Signin() {
         <>
 
             <div className='flex items-center justify-center h-screen'>
-                <form onSubmit={handleSignin} className='w-[30%] bg-white p-10 rounded-lg shadow-lg'>
+                <form onSubmit={handleSignin} className='w-full sm:w-[80%] md:w-[50%] lg:w-[30%] bg-white p-10 rounded-lg shadow-lg'>
                     <h2 className='text-2xl font-bold mb-6'>Welcome back!</h2>
                     <div className=''>
                         <p>Email*</p>

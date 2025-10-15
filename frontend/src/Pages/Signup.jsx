@@ -55,7 +55,7 @@ const Signup = () => {
 
   return (
     <div className='flex items-center justify-center h-screen'>
-      <form onSubmit={handleSignup} className='bg-white p-10 rounded-lg w-[30%] shadow-2xl'>
+      <form onSubmit={handleSignup} className='bg-white p-10 rounded-lg w-full sm:w-[80%] md:w-[50%] lg:w-[30%] shadow-2xl'>
         <h2 className='text-2xl font-bold mb-6'>Join UniSocial</h2>
         <div className=''>
           <p>Email address*</p>

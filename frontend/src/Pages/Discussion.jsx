@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import DefaultPic from '../assets/image.png'; // fallback/default image
+import DefaultPic from '../assets/image.png';
 import { getUsername, trendingTags, topPosts, topCommented } from '../api';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../auth/firebase';
@@ -62,13 +62,13 @@ function Discussion() {
         onSearchResult={setSearchResult}
       />
       
-      <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-8xl mx-auto px-3 sm:px-4 lg:px-8">
         {/* Navigation Tabs */}
-        <div className="py-6">
+        <div className="py-4 sm:py-6">
           <nav className="flex space-x-1 bg-white rounded-lg p-1 shadow-sm border border-gray-200">
             <Link 
               to={`/Discussion`} 
-              className={`flex-1 text-center py-2.5 px-4 rounded-md font-medium text-sm transition-colors ${
+              className={`flex-1 text-center py-2 sm:py-2.5 px-2 sm:px-4 rounded-md font-medium text-xs sm:text-sm transition-colors ${
                 location.pathname === "/Discussion" 
                   ? "bg-rose-500 text-white shadow-sm" 
                   : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
@@ -78,7 +78,7 @@ function Discussion() {
             </Link>
             <Link 
               to={`/Feed`} 
-              className={`flex-1 text-center py-2.5 px-4 rounded-md font-medium text-sm transition-colors ${
+              className={`flex-1 text-center py-2 sm:py-2.5 px-2 sm:px-4 rounded-md font-medium text-xs sm:text-sm transition-colors ${
                 location.pathname === "/Feed" 
                   ? "bg-blue-600 text-white shadow-sm" 
                   : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
@@ -89,36 +89,35 @@ function Discussion() {
           </nav>
         </div>
 
-        <div className="flex gap-8">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
           {/* Main Content Area */}
           <div className="flex-1 min-w-0">
             {/* Search Result */}
             {isSearchActive && searchResult && (
-              <div className="mb-6">
-                
+              <div className="mb-4 sm:mb-6">
                 <Link 
                   to={`/discussion/${searchResult._id}`} 
                   className="block bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
                 >
-                  <div className="p-6">
+                  <div className="p-4 sm:p-6">
                     {/* Post Header */}
-                    <div className="flex items-start space-x-3">
+                    <div className="flex items-start space-x-2 sm:space-x-3">
                       <img
                         src={
                           searchResult.author && searchResult.author.profilePic
                             ? `${searchResult.author.profilePic}`
                             : DefaultPic
                         }
-                        className="h-12 w-12 rounded-full object-cover border-2 border-gray-100"
+                        className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover border-2 border-gray-100"
                         alt="profile"
                       />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center space-x-2">
-                          <h3 className="font-semibold text-gray-900 truncate">
+                          <h3 className="font-semibold text-sm sm:text-base text-gray-900 truncate">
                             {searchResult.author ? searchResult.author.username : "[deleted user]"}
                           </h3>
                           <span className="text-gray-400">•</span>
-                          <span className="text-sm text-gray-500">
+                          <span className="text-xs sm:text-sm text-gray-500">
                             {new Date(searchResult.createdAt).toLocaleDateString()}
                           </span>
                         </div>
@@ -126,18 +125,18 @@ function Discussion() {
                     </div>
 
                     {/* Post Content */}
-                    <div className="mt-4">
-                      <h2 className="text-xl font-semibold text-gray-900 mb-2">{searchResult.title}</h2>
-                      <p className="text-gray-700 line-clamp-3">{searchResult.content}</p>
+                    <div className="mt-3 sm:mt-4">
+                      <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{searchResult.title}</h2>
+                      <p className="text-sm sm:text-base text-gray-700 line-clamp-3">{searchResult.content}</p>
                     </div>
 
                     {/* Tags */}
                     {searchResult.tags && searchResult.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mt-4">
+                      <div className="flex flex-wrap gap-2 mt-3 sm:mt-4">
                         {searchResult.tags.map((tag, index) => (
                           <button
                             key={index}
-                            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors"
+                            className="inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors"
                             onClick={(e) => {
                               e.preventDefault();
                               e.stopPropagation();
@@ -151,12 +150,12 @@ function Discussion() {
                     )}
 
                     {/* Engagement Stats */}
-                    <div className="flex items-center space-x-6 mt-4 pt-4 border-t border-gray-100">
-                      <div className="flex items-center space-x-1 text-sm text-gray-500">
+                    <div className="flex items-center space-x-4 sm:space-x-6 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-100">
+                      <div className="flex items-center space-x-1 text-xs sm:text-sm text-gray-500">
                         <HandThumbUpIcon className="h-4 w-4" />
                         <span>{searchResult.likes.length}</span>
                       </div>
-                      <div className="flex items-center space-x-1 text-sm text-gray-500">
+                      <div className="flex items-center space-x-1 text-xs sm:text-sm text-gray-500">
                         <HandThumbUpIcon className="h-4 w-4 rotate-180" />
                         <span>{searchResult.dislikes.length}</span>
                       </div>
@@ -168,21 +167,21 @@ function Discussion() {
 
             {/* No Search Results */}
             {isSearchActive && !searchResult && (
-              <div className="text-center py-12">
-                <MagnifyingGlassIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No posts found</h3>
-                <p className="text-gray-500">Try adjusting your search terms</p>
+              <div className="text-center py-8 sm:py-12">
+                <MagnifyingGlassIcon className="h-10 w-10 sm:h-12 sm:w-12 text-gray-400 mx-auto mb-3 sm:mb-4" />
+                <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">No posts found</h3>
+                <p className="text-sm sm:text-base text-gray-500">Try adjusting your search terms</p>
               </div>
             )}
 
             {/* Regular Posts */}
             {!isSearchActive && (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {posts.length === 0 ? (
-                  <div className="text-center py-12">
-                    <ChatBubbleBottomCenterTextIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No discussions yet</h3>
-                    <p className="text-gray-500">Be the first to start a conversation!</p>
+                  <div className="text-center py-8 sm:py-12">
+                    <ChatBubbleBottomCenterTextIcon className="h-10 w-10 sm:h-12 sm:w-12 text-gray-400 mx-auto mb-3 sm:mb-4" />
+                    <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">No discussions yet</h3>
+                    <p className="text-sm sm:text-base text-gray-500">Be the first to start a conversation!</p>
                   </div>
                 ) : (
                   posts.map((post) => (
@@ -191,40 +190,45 @@ function Discussion() {
                       to={`/discussion/${post._id}`}
                       className="block bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
                     >
-                      <div className="p-6">
+                      <div className="p-4 sm:p-6">
                         {/* Post Header */}
-                        <div className="flex items-start space-x-3">
+                        <div className="flex items-start space-x-2 sm:space-x-3">
                           <img
                             src={
                               post.author && post.author.profilePic
                                 ? `${post.author.profilePic}`
                                 : DefaultPic
                             }
-                            className="h-12 w-12 rounded-full object-cover border-2 border-gray-100"
+                            className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover border-2 border-gray-100"
                             alt="profile"
                           />
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center space-x-2">
-                              <h3 className="font-semibold text-gray-900 truncate">
+                              <h3 className="font-semibold text-sm sm:text-base text-gray-900 truncate">
                                 {post.author && !post.author.deleted ? (
                                   post.author.username
                                 ) : (
                                   <span className="text-gray-500">[deleted user]</span>
                                 )}
                               </h3>
-                              <span className="text-gray-400">•</span>
-                              <span className="text-sm text-gray-500">
+                              <span className="text-gray-400 hidden sm:inline">•</span>
+                              <span className="text-xs sm:text-sm text-gray-500 hidden sm:inline">
                                 {new Date(post.createdAt).toLocaleDateString()}
                               </span>
                             </div>
                             
+                            {/* Date for mobile */}
+                            <div className="text-xs text-gray-500 sm:hidden mt-0.5">
+                              {new Date(post.createdAt).toLocaleDateString()}
+                            </div>
+                            
                             {/* Engagement Stats in Header */}
-                            <div className="flex items-center space-x-4 mt-1">
-                              <div className="flex items-center space-x-1 text-sm text-gray-500">
+                            <div className="flex items-center space-x-3 sm:space-x-4 mt-1">
+                              <div className="flex items-center space-x-1 text-xs sm:text-sm text-gray-500">
                                 <HandThumbUpIcon className="h-3 w-3" />
                                 <span>{post.likes.length}</span>
                               </div>
-                              <div className="flex items-center space-x-1 text-sm text-gray-500">
+                              <div className="flex items-center space-x-1 text-xs sm:text-sm text-gray-500">
                                 <HandThumbUpIcon className="h-3 w-3 rotate-180" />
                                 <span>{post.dislikes.length}</span>
                               </div>
@@ -233,19 +237,19 @@ function Discussion() {
                         </div>
 
                         {/* Post Title */}
-                        <div className="mt-4">
-                          <h2 className="text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors">
+                        <div className="mt-3 sm:mt-4">
+                          <h2 className="text-base sm:text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors">
                             {post.title}
                           </h2>
                         </div>
 
                         {/* Tags */}
                         {post.tags && post.tags.length > 0 && (
-                          <div className="flex flex-wrap gap-2 mt-3">
+                          <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2 sm:mt-3">
                             {post.tags.map((tag, index) => (
                               <button
                                 key={index}
-                                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                                className="inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
                                 onClick={(e) => {
                                   e.preventDefault();
                                   e.stopPropagation();
@@ -265,8 +269,8 @@ function Discussion() {
             )}
           </div>
 
-          {/* Sidebar */}
-          <div className="w-80 flex-shrink-0">
+          {/* Sidebar - Hidden on mobile, shown on large screens */}
+          <div className="hidden lg:block lg:w-80 flex-shrink-0">
             <div className="sticky top-6 space-y-6">
               {/* Trending Tags */}
               <div className="bg-white rounded-lg shadow-sm border border-gray-200">
@@ -351,6 +355,98 @@ function Discussion() {
                     </ul>
                   ) : (
                     <p className="text-gray-500 text-sm">No discussed posts yet</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Sidebar - Horizontal scroll at bottom */}
+          <div className="lg:hidden">
+            <div className="space-y-4 pb-4">
+              {/* Trending Tags - Mobile */}
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+                <div className="px-4 py-2.5 border-b border-gray-200">
+                  <div className="flex items-center space-x-2">
+                    <FireIcon className="h-4 w-4 text-orange-500" />
+                    <h2 className="font-semibold text-sm text-gray-900">Trending Tags</h2>
+                  </div>
+                </div>
+                <div className="p-3">
+                  {trendingTagsR.length > 0 ? (
+                    <div className="flex flex-wrap gap-1.5">
+                      {trendingTagsR.map((tag, index) => (
+                        <button
+                          key={index}
+                          onClick={() => navigate(`/tags/${tag._id}`)}
+                          className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-orange-50 text-orange-700 hover:bg-orange-100 transition-colors"
+                        >
+                          #{tag._id}
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-gray-500 text-xs">No trending tags yet</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Most Liked Posts - Mobile */}
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+                <div className="px-4 py-2.5 border-b border-gray-200">
+                  <div className="flex items-center space-x-2">
+                    <HandThumbUpIcon className="h-4 w-4 text-green-500" />
+                    <h2 className="font-semibold text-sm text-gray-900">Most Liked</h2>
+                  </div>
+                </div>
+                <div className="p-3">
+                  {topPostsR.length > 0 ? (
+                    <ul className="space-y-2">
+                      {topPostsR.map((post, index) => (
+                        <li key={index}>
+                          <button
+                            onClick={() => navigate(`/Discussion/${post._id}`)}
+                            className="text-left w-full p-2 rounded-md hover:bg-gray-50 transition-colors"
+                          >
+                            <p className="text-xs font-medium text-gray-900 line-clamp-2 hover:text-blue-600">
+                              {post.title}
+                            </p>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-gray-500 text-xs">No popular posts yet</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Most Commented Posts - Mobile */}
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+                <div className="px-4 py-2.5 border-b border-gray-200">
+                  <div className="flex items-center space-x-2">
+                    <ChatBubbleBottomCenterTextIcon className="h-4 w-4 text-blue-500" />
+                    <h2 className="font-semibold text-sm text-gray-900">Most Discussed</h2>
+                  </div>
+                </div>
+                <div className="p-3">
+                  {topCommentedR.length > 0 ? (
+                    <ul className="space-y-2">
+                      {topCommentedR.map((post, index) => (
+                        <li key={index}>
+                          <button
+                            onClick={() => navigate(`/Discussion/${post._id}`)}
+                            className="text-left w-full p-2 rounded-md hover:bg-gray-50 transition-colors"
+                          >
+                            <p className="text-xs font-medium text-gray-900 line-clamp-2 hover:text-blue-600">
+                              {post.title}
+                            </p>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-gray-500 text-xs">No discussed posts yet</p>
                   )}
                 </div>
               </div>
