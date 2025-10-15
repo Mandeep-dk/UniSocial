@@ -28,7 +28,7 @@ function Contact() {
     };
 
     return (
-        <div id="contact" className='py-12 sm:py-16 md:py-20 bg-white min-h-screen flex items-center'>
+        <div id="contact" className='py-12 sm:py-16 md:py-20 bg-white min-h-screen flex items-center mt-[15vh]'>
             <div className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full'>
                 <div className='flex flex-col md:flex-row gap-8 md:gap-12 lg:gap-16'>
                     {/* Left Section */}

@@ -5,7 +5,7 @@ function HeroSection() {
     const navigate = useNavigate();
     
     return (
-        <div id="home" className='min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8'>
+        <div id="home" className='min-h-screen flex flex-col items-center justify-start pt-[18vh] px-4 sm:px-6 lg:px-8'>
             <h1 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-center mb-4 sm:mb-6 leading-tight'>
                 Your university, your voice
             </h1>

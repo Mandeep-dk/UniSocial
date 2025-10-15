@@ -5,10 +5,11 @@ function About() {
     const navigate = useNavigate();
     
     return (
-        <div 
-            id="about" 
-            className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 min-h-screen bg-gray-50 flex items-center"
-        >
+       <div 
+  id="about" 
+  className="px-4 sm:px-6 lg:px-8 sm:py-16 md:py-20 bg-gray-50 flex items-center -mt-[20vh]"
+>
+
             <div className='max-w-6xl mx-auto w-full'>
                 <div className='max-w-3xl mx-auto text-center'>
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 px-4">
