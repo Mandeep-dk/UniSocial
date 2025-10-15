@@ -6,7 +6,7 @@ import { getUsername, trendingTags, topPosts, topCommented } from '../api';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../auth/firebase';
 import SearchBar from '../components/SearchBar';
-import { MagnifyingGlassIcon, FireIcon, HandThumbUpIcon, ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, FireIcon, HandThumbUpIcon, ChatBubbleBottomCenterTextIcon, Bars3Icon } from '@heroicons/react/24/outline';
 
 function Discussion() {
   const [posts, setPosts] = useState([]);
@@ -15,6 +15,7 @@ function Discussion() {
   const [topPostsR, setTopPostsR] = useState([]);
   const [trendingTagsR, setTrendingTagsR] = useState([]);
   const [topCommentedR, setTopCommentedR] = useState([]);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -87,6 +88,17 @@ function Discussion() {
               Following
             </Link>
           </nav>
+        </div>
+
+        {/* Mobile Sidebar Toggle */}
+        <div className="lg:hidden mb-4">
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="flex items-center space-x-2 px-4 py-2 bg-white rounded-lg shadow-sm border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors"
+          >
+            <Bars3Icon className="h-5 w-5" />
+            <span className="text-sm font-medium">Trending & Popular</span>
+          </button>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
@@ -269,54 +281,54 @@ function Discussion() {
             )}
           </div>
 
-          {/* Sidebar - Hidden on mobile, shown on large screens */}
-          <div className="hidden lg:block lg:w-80 flex-shrink-0">
-            <div className="sticky top-6 space-y-6">
+          {/* Sidebar - Hidden on mobile by default, shown when toggled */}
+          <div className={`${sidebarOpen ? 'block' : 'hidden'} lg:block w-full lg:w-80 flex-shrink-0`}>
+            <div className="lg:sticky lg:top-6 space-y-4 lg:space-y-6">
               {/* Trending Tags */}
               <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-                <div className="px-4 py-3 border-b border-gray-200">
+                <div className="px-4 py-2.5 lg:py-3 border-b border-gray-200">
                   <div className="flex items-center space-x-2">
-                    <FireIcon className="h-5 w-5 text-orange-500" />
-                    <h2 className="font-semibold text-gray-900">Trending Tags</h2>
+                    <FireIcon className="h-4 w-4 lg:h-5 lg:w-5 text-orange-500" />
+                    <h2 className="font-semibold text-sm lg:text-base text-gray-900">Trending Tags</h2>
                   </div>
                 </div>
-                <div className="p-4">
+                <div className="p-3 lg:p-4">
                   {trendingTagsR.length > 0 ? (
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5 lg:gap-2">
                       {trendingTagsR.map((tag, index) => (
                         <button
                           key={index}
                           onClick={() => navigate(`/tags/${tag._id}`)}
-                          className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-orange-50 text-orange-700 hover:bg-orange-100 transition-colors"
+                          className="inline-flex items-center px-2.5 lg:px-3 py-1 lg:py-1.5 rounded-full text-xs lg:text-sm font-medium bg-orange-50 text-orange-700 hover:bg-orange-100 transition-colors"
                         >
                           #{tag._id}
                         </button>
                       ))}
                     </div>
                   ) : (
-                    <p className="text-gray-500 text-sm">No trending tags yet</p>
+                    <p className="text-gray-500 text-xs lg:text-sm">No trending tags yet</p>
                   )}
                 </div>
               </div>
 
               {/* Most Liked Posts */}
               <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-                <div className="px-4 py-3 border-b border-gray-200">
+                <div className="px-4 py-2.5 lg:py-3 border-b border-gray-200">
                   <div className="flex items-center space-x-2">
-                    <HandThumbUpIcon className="h-5 w-5 text-green-500" />
-                    <h2 className="font-semibold text-gray-900">Most Liked</h2>
+                    <HandThumbUpIcon className="h-4 w-4 lg:h-5 lg:w-5 text-green-500" />
+                    <h2 className="font-semibold text-sm lg:text-base text-gray-900">Most Liked</h2>
                   </div>
                 </div>
-                <div className="p-4">
+                <div className="p-3 lg:p-4">
                   {topPostsR.length > 0 ? (
-                    <ul className="space-y-3">
+                    <ul className="space-y-2 lg:space-y-3">
                       {topPostsR.map((post, index) => (
                         <li key={index}>
                           <button
                             onClick={() => navigate(`/Discussion/${post._id}`)}
                             className="text-left w-full p-2 rounded-md hover:bg-gray-50 transition-colors"
                           >
-                            <p className="text-sm font-medium text-gray-900 line-clamp-2 hover:text-blue-600">
+                            <p className="text-xs lg:text-sm font-medium text-gray-900 line-clamp-2 hover:text-blue-600">
                               {post.title}
                             </p>
                           </button>
@@ -324,29 +336,29 @@ function Discussion() {
                       ))}
                     </ul>
                   ) : (
-                    <p className="text-gray-500 text-sm">No popular posts yet</p>
+                    <p className="text-gray-500 text-xs lg:text-sm">No popular posts yet</p>
                   )}
                 </div>
               </div>
 
               {/* Most Commented Posts */}
               <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-                <div className="px-4 py-3 border-b border-gray-200">
+                <div className="px-4 py-2.5 lg:py-3 border-b border-gray-200">
                   <div className="flex items-center space-x-2">
-                    <ChatBubbleBottomCenterTextIcon className="h-5 w-5 text-blue-500" />
-                    <h2 className="font-semibold text-gray-900">Most Discussed</h2>
+                    <ChatBubbleBottomCenterTextIcon className="h-4 w-4 lg:h-5 lg:w-5 text-blue-500" />
+                    <h2 className="font-semibold text-sm lg:text-base text-gray-900">Most Discussed</h2>
                   </div>
                 </div>
-                <div className="p-4">
+                <div className="p-3 lg:p-4">
                   {topCommentedR.length > 0 ? (
-                    <ul className="space-y-3">
+                    <ul className="space-y-2 lg:space-y-3">
                       {topCommentedR.map((post, index) => (
                         <li key={index}>
                           <button
                             onClick={() => navigate(`/Discussion/${post._id}`)}
                             className="text-left w-full p-2 rounded-md hover:bg-gray-50 transition-colors"
                           >
-                            <p className="text-sm font-medium text-gray-900 line-clamp-2 hover:text-blue-600">
+                            <p className="text-xs lg:text-sm font-medium text-gray-900 line-clamp-2 hover:text-blue-600">
                               {post.title}
                             </p>
                           </button>
@@ -354,99 +366,7 @@ function Discussion() {
                       ))}
                     </ul>
                   ) : (
-                    <p className="text-gray-500 text-sm">No discussed posts yet</p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile Sidebar - Horizontal scroll at bottom */}
-          <div className="lg:hidden">
-            <div className="space-y-4 pb-4">
-              {/* Trending Tags - Mobile */}
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-                <div className="px-4 py-2.5 border-b border-gray-200">
-                  <div className="flex items-center space-x-2">
-                    <FireIcon className="h-4 w-4 text-orange-500" />
-                    <h2 className="font-semibold text-sm text-gray-900">Trending Tags</h2>
-                  </div>
-                </div>
-                <div className="p-3">
-                  {trendingTagsR.length > 0 ? (
-                    <div className="flex flex-wrap gap-1.5">
-                      {trendingTagsR.map((tag, index) => (
-                        <button
-                          key={index}
-                          onClick={() => navigate(`/tags/${tag._id}`)}
-                          className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-orange-50 text-orange-700 hover:bg-orange-100 transition-colors"
-                        >
-                          #{tag._id}
-                        </button>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-gray-500 text-xs">No trending tags yet</p>
-                  )}
-                </div>
-              </div>
-
-              {/* Most Liked Posts - Mobile */}
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-                <div className="px-4 py-2.5 border-b border-gray-200">
-                  <div className="flex items-center space-x-2">
-                    <HandThumbUpIcon className="h-4 w-4 text-green-500" />
-                    <h2 className="font-semibold text-sm text-gray-900">Most Liked</h2>
-                  </div>
-                </div>
-                <div className="p-3">
-                  {topPostsR.length > 0 ? (
-                    <ul className="space-y-2">
-                      {topPostsR.map((post, index) => (
-                        <li key={index}>
-                          <button
-                            onClick={() => navigate(`/Discussion/${post._id}`)}
-                            className="text-left w-full p-2 rounded-md hover:bg-gray-50 transition-colors"
-                          >
-                            <p className="text-xs font-medium text-gray-900 line-clamp-2 hover:text-blue-600">
-                              {post.title}
-                            </p>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="text-gray-500 text-xs">No popular posts yet</p>
-                  )}
-                </div>
-              </div>
-
-              {/* Most Commented Posts - Mobile */}
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-                <div className="px-4 py-2.5 border-b border-gray-200">
-                  <div className="flex items-center space-x-2">
-                    <ChatBubbleBottomCenterTextIcon className="h-4 w-4 text-blue-500" />
-                    <h2 className="font-semibold text-sm text-gray-900">Most Discussed</h2>
-                  </div>
-                </div>
-                <div className="p-3">
-                  {topCommentedR.length > 0 ? (
-                    <ul className="space-y-2">
-                      {topCommentedR.map((post, index) => (
-                        <li key={index}>
-                          <button
-                            onClick={() => navigate(`/Discussion/${post._id}`)}
-                            className="text-left w-full p-2 rounded-md hover:bg-gray-50 transition-colors"
-                          >
-                            <p className="text-xs font-medium text-gray-900 line-clamp-2 hover:text-blue-600">
-                              {post.title}
-                            </p>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="text-gray-500 text-xs">No discussed posts yet</p>
+                    <p className="text-gray-500 text-xs lg:text-sm">No discussed posts yet</p>
                   )}
                 </div>
               </div>

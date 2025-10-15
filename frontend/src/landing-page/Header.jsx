@@ -10,7 +10,7 @@ function Header() {
     return (
         <header className='sticky top-0 bg-white shadow-sm z-50'>
             <div className='flex items-center p-4 px-4 sm:px-6 lg:px-10 justify-between'>
-                <h1 className='text-2xl sm:text-3xl font-bold text-rose-500'>UniSocial</h1>
+                <a href='/'  className='text-2xl sm:text-3xl font-bold text-rose-500'>UniSocial</a>
 
                 {/* Desktop Navigation */}
                 <nav className='hidden md:flex text-base lg:text-lg space-x-4 lg:space-x-6'>
