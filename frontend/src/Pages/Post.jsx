@@ -13,6 +13,7 @@ function Post() {
   const [file, setFile] = useState([]);
   const [tags, setTags] = useState([]);
   const [inputTagValue, setInputTagValue] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -24,6 +25,7 @@ function Post() {
   }, []);
 
   const handleCreatePost = async () => {
+    setLoading(true);
     if (!postContent || !uid || !postTitle) {
       toast.error("Please fill in all required fields", { autoClose: 2000 });
       return;
@@ -54,6 +56,8 @@ function Post() {
       setTags([]);
     } catch (err) {
       console.error("Failed to create post: ", err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -290,6 +294,11 @@ function Post() {
           )}
 
           {/* Submit Button */}
+          {loading?(
+                    <p className="text-rose-500 font-medium">Uploading...</p>
+
+          ):(
+
           <div className="flex justify-center pt-2 sm:pt-4">
             <button
               onClick={handleCreatePost}
@@ -298,6 +307,7 @@ function Post() {
               Create Post
             </button>
           </div>
+          )}
         </div>
 
         {/* Helper Text */}
