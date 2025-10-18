@@ -47,7 +47,6 @@ function Post() {
       });
 
       const data = await res.json();
-      console.log("Post created: ", data);
 
       setPostTitle("");
       setPostContent("");

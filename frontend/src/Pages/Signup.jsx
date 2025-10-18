@@ -44,7 +44,6 @@ const Signup = () => {
         }
       } catch (error) {
         // If profile doesn't exist (new Google user), go to Verify
-        console.log("New Google user, redirecting to Verify");
         navigate("/Verify", { replace: true });
       }
     } catch (error) {

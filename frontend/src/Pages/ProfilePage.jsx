@@ -36,7 +36,6 @@ function ProfilePage() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const res = await getUsername(user.uid);
-        console.log("xeitu beh", res.data)
         setLoggedInUid(res.data.uid);
         setProfilePic(res.data.profilePic);
       }
@@ -49,7 +48,6 @@ function ProfilePage() {
     const fetchUser = async () => {
       try {
         const res = await getUsername(uid);
-        console.log(res.data);
 
         setData(res.data);
         setProfilePic(res.data.profilePic);
@@ -79,7 +77,6 @@ function ProfilePage() {
     const fetchPosts = async () => {
       try {
         const res = await userPosts(ids);
-        console.log(res.data);
         setPosts(res.data);
       } catch (err) {
         console.error("Error occurred while fetching posts:", err.message);
@@ -93,7 +90,6 @@ function ProfilePage() {
       const checkFollowStatus = async () => {
         const res = await isfollow(loggedInUid, uid);
         setFollow(res.data.isFollowing);
-        console.log("hello", res.data)
       }
       if (loggedInUid && uid) {
         checkFollowStatus();

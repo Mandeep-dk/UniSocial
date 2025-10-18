@@ -25,7 +25,6 @@ function Discussion() {
         const res = await fetch("https://unisocial-8gc2.onrender.com/api/allPosts");
         const data = await res.json();
         setPosts(data);
-        console.log(data)
       } catch (err) {
         console.error("Failed.", err.message);
       }
@@ -40,12 +39,9 @@ function Discussion() {
         const res2 = await topPosts();
         const res3 = await topCommented();
 
-        console.log("res 1:", res1)
         setTrendingTagsR(res1.data);
 
-        console.log("res 2:", res2)
         setTopPostsR(res2.data);
-        console.log("res 3:", res3)
         setTopCommentedR(res3.data);
       } catch (e) {
         console.error("Error in right section:", e.message);

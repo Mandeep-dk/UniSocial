@@ -44,7 +44,6 @@ function Signin() {
       }
     } catch (error) {
       // If profile doesn't exist, redirect to Verify
-      console.log("Profile not found, redirecting to Verify");
       navigate("/Verify", { replace: true });
     }
   } catch (error) {

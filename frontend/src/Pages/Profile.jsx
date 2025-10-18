@@ -19,10 +19,6 @@ function Profile({ onProfileComplete }) {
       if (user) {
         setUid(user.uid);
         setUsername(user.displayName || user.email);
-        console.log("UID:", user.uid);
-        console.log("Username:", user.displayName);
-      } else {
-        console.log("User not logged in");
       }
     });
 
@@ -35,7 +31,6 @@ function Profile({ onProfileComplete }) {
     // Pass uid as a parameter to exclude current user from search
     const userSearchRes = await searchUser(username, uid);
     const res2 = userSearchRes.data;
-    console.log("that one", res2);
 
     if (!res2.exists) {
       const interestsArray = interests.split(',').map(item => item.trim()).filter(item => item);
@@ -49,7 +44,6 @@ function Profile({ onProfileComplete }) {
       if (onProfileComplete) {
         await onProfileComplete();
       }
-      console.log("Profile saved:", res.data);
       navigate("/Discussion", { replace: true });
     } else {
       toast.error("Username is already taken", { autoClose: 2000 });

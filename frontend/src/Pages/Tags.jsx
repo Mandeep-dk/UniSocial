@@ -13,7 +13,6 @@ function Tags() {
         const fetchPosts = async () => {
             try {
                 const res = await getTag(tag);
-                console.log("Posts for tag:", res.data);
                 setPosts(res.data);
             } catch (err) {
                 console.error("Error while fetching posts:", err.message);

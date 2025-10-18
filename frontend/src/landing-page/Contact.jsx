@@ -16,7 +16,6 @@ function Contact() {
                 email,
                 message,
             });
-            console.log(res.data);
             setStatus('success');
             setName('');
             setEmail('');

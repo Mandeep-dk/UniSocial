@@ -24,7 +24,6 @@ function SearchBar({ onSearchStateChange, onSearchResult }) {
     const fetchContent = async () => {
       try {
         const res = await search(searchValue);
-        console.log("Search results:", res.data);
         setResults(res.data);
 
         if (res.data.length > 0) {
@@ -52,7 +51,6 @@ function SearchBar({ onSearchStateChange, onSearchResult }) {
     const findPostById = async () => {
       try {
         const res = await findPost(postId);
-        console.log("Post by ID:", res.data);
         // Pass the result back to parent instead of storing locally
         if (onSearchResult) {
           onSearchResult(res.data);

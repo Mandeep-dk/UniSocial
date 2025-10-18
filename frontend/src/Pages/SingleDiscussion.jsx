@@ -40,7 +40,6 @@ const SingleDiscussion = () => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUid(user.uid);
-        // console.log(user)
         setUser(user);
       }
     });
@@ -69,7 +68,6 @@ const SingleDiscussion = () => {
           setVideo(videoFiles);
           setFiles(otherFiles);
         }
-        console.log(data);
       } catch (err) {
         console.error("Failed.", err.message);
       }

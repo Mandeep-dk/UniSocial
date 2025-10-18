@@ -41,10 +41,8 @@ function App() {
         setProfileLoading(true);
         try {
           const res = await getUsername(currentUser.uid);
-          console.log("Profile API response:", res.data);
 
           if (res && res.data) {
-            console.log("app.jsx", res.data);
             setProfileCompleted(res.data.profileCompleted);
           } else {
             setProfileCompleted(false);
@@ -69,7 +67,6 @@ function App() {
     if (user) {
       try {
         const res = await getUsername(user.uid);
-        console.log("Profile API response:", res.data);
 
         if (res && res.data) {
           setProfileCompleted(res.data.profileCompleted);

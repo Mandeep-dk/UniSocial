@@ -25,7 +25,6 @@ function FollowingFeed() {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const res = await getUsername(user.uid);
-                console.log("xeitu beh", res.data)
                 setLoggedInUid(res.data.uid);
                 setFollowingUid(res.data.following);
             }
@@ -38,10 +37,8 @@ function FollowingFeed() {
         const fetchPosts = (async () => {
             try {
                 if (followingUid.length > 0) {
-                    console.log(followingUid)
                     const res = await getUsername(followingUid);
                     setFollowingId(res.data._id);
-                    console.log(res.data);
                 }
             } catch (err) {
                 console.error(err.message);
@@ -55,7 +52,6 @@ function FollowingFeed() {
             try {
                 if (followingId) {
                     const res = await userPosts(followingId);
-                    console.log("ah", res.data);
                     setData(res.data);
                 }
             } catch (err) {
@@ -72,12 +68,9 @@ function FollowingFeed() {
                 const res2 = await topPosts();
                 const res3 = await topCommented();
 
-                console.log("res 1:", res1)
                 setTrendingTagsR(res1.data);
 
-                console.log("res 2:", res2)
                 setTopPostsR(res2.data);
-                console.log("res 3:", res3)
                 setTopCommentedR(res3.data);
             } catch (e) {
                 console.error("Error in right section:", e.message);

@@ -24,7 +24,6 @@ const CommentItem = ({ comment, onReply, onReact, replies, onDelete, onUpdate, c
     const submitReply = () => {
         onReply(replyContent, comment._id);
         toggleReplyBox();
-        // console.log("hi bro", currentUserData)
     };
 
     const handleOpenMenu = () => {

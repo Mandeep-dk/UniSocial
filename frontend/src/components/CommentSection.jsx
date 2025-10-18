@@ -21,7 +21,6 @@ const CommentSection = ({ postId, currentUser }) => {
         try {
             // Get current user's profile data including _id for posting comments
             const res = await getUsername([currentUser.uid]);
-            // console.log('Current user data:', res.data);
             
             // Handle different response formats from your API
             let userData = null;
@@ -30,7 +29,6 @@ const CommentSection = ({ postId, currentUser }) => {
             } else if (res.data && res.data._id) {
                 userData = res.data;
             }
-            // console.log("User data", userData)
             setCurrentUserData(userData);
         } catch (err) {
             console.error("Error fetching current user data:", err.message);
@@ -41,7 +39,6 @@ const CommentSection = ({ postId, currentUser }) => {
         try {
             setLoading(true);
             const res = await fetchComments(postId);
-            // console.log("Fetched comments with authors:", res.data);
             
             setComments(res.data);
         } catch (err) {
@@ -64,7 +61,6 @@ const CommentSection = ({ postId, currentUser }) => {
                 author: currentUserData._id,
             });
             
-            // console.log("Posted comment:", newComment);
             setContent('');
             loadComments(); // Reload to get populated data
         } catch (err) {
