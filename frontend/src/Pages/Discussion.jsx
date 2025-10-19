@@ -256,6 +256,10 @@ function Discussion() {
                           <h2 className="text-base sm:text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors">
                             {post.title}
                           </h2>
+                          <p className="text-sm sm:text-base mt-2 text-gray-900 hover:text-blue-600 transition-colors">
+                            {post.content}
+                          </p>
+
                         </div>
 
                         {/* Tags */}

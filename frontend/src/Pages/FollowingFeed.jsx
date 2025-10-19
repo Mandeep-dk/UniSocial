@@ -88,7 +88,7 @@ function FollowingFeed() {
                 onSearchResult={setSearchResult}
             />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Navigation Tabs */}
                 <div className="py-4 md:py-6">
                     <nav className="flex space-x-1 bg-white rounded-lg p-1 shadow-sm border border-gray-200">
