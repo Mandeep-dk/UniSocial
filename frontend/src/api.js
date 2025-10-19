@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // 🔹 Base URL automatically changes based on environment
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+const BASE_URL =  'http://localhost:5000';
 
 //Comments
 const commentsAPI = axios.create({ baseURL: `${BASE_URL}/api/comments` });
@@ -65,3 +65,10 @@ const contact = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 export const contactApi = (data) => contact.post('/', data);
+
+
+//show followers
+const followers = axios.create({baseURL: `${BASE_URL}/api/followers`});
+
+export const getFollowers = (uid) => followers.get(`/${uid}/followers`);
+export const getFollowing = (uid) => followers.get(`/${uid}/following`);

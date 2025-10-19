@@ -53,6 +53,7 @@ function FollowingFeed() {
                 if (followingId) {
                     const res = await userPosts(followingId);
                     setData(res.data);
+                    console.log(res.data)
                 }
             } catch (err) {
                 console.error(err.message);
@@ -69,7 +70,6 @@ function FollowingFeed() {
                 const res3 = await topCommented();
 
                 setTrendingTagsR(res1.data);
-
                 setTopPostsR(res2.data);
                 setTopCommentedR(res3.data);
             } catch (e) {
@@ -87,19 +87,19 @@ function FollowingFeed() {
                 onSearchStateChange={setIsSearchActive}
                 onSearchResult={setSearchResult}
             />
-            
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Navigation Tabs */}
                 <div className="py-4 md:py-6">
                     <nav className="flex space-x-1 bg-white rounded-lg p-1 shadow-sm border border-gray-200">
-                        <Link 
-                            to={`/Discussion`} 
+                        <Link
+                            to={`/Discussion`}
                             className="flex-1 text-center py-2 md:py-2.5 px-2 md:px-4 rounded-md font-medium text-xs md:text-sm transition-colors text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                         >
                             All Discussions
                         </Link>
-                        <Link 
-                            to={`/Feed`} 
+                        <Link
+                            to={`/Feed`}
                             className="flex-1 text-center py-2 md:py-2.5 px-2 md:px-4 rounded-md font-medium text-xs md:text-sm transition-colors bg-rose-500 text-white shadow-sm"
                         >
                             Following
@@ -124,22 +124,28 @@ function FollowingFeed() {
                         {/* Search Result */}
                         {isSearchActive && searchResult && (
                             <div className="mb-4 md:mb-6">
-                                <Link 
-                                    to={`/discussion/${searchResult._id}`} 
+                                <Link
+                                    to={`/discussion/${searchResult._id}`}
                                     className="block bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
                                 >
                                     <div className="p-4 md:p-6">
                                         {/* Post Header */}
                                         <div className="flex items-start space-x-3">
-                                            <img
-                                                src={
-                                                    searchResult.author && searchResult.author.profilePic
-                                                        ? `${searchResult.author.profilePic}`
-                                                        : DefaultPic
-                                                }
-                                                className="h-10 w-10 md:h-12 md:w-12 rounded-full object-cover border-2 border-gray-100"
-                                                alt="profile"
-                                            />
+                                            <Link 
+                                                to={`/profile/${searchResult.author?.uid}`} 
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                <img
+
+                                                    src={
+                                                        searchResult.author && searchResult.author.profilePic
+                                                            ? searchResult.author.profilePic
+                                                            : DefaultPic
+                                                    }
+                                                    className="h-10 w-10 md:h-12 md:w-12 rounded-full object-cover border-2 border-gray-100"
+                                                    alt="profile"
+                                                />
+                                            </Link>
                                             <div className="flex-1 min-w-0">
                                                 <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
                                                     <h3 className="font-semibold text-sm md:text-base text-gray-900 truncate">
@@ -211,7 +217,7 @@ function FollowingFeed() {
                                         <UserGroupIcon className="h-10 w-10 md:h-12 md:w-12 text-gray-400 mx-auto mb-4" />
                                         <h3 className="text-base md:text-lg font-medium text-gray-900 mb-2">No posts from your followings</h3>
                                         <p className="text-sm md:text-base text-gray-500 mb-4">Follow some users to see their posts here!</p>
-                                        <Link 
+                                        <Link
                                             to="/Discussion"
                                             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-rose-500 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
                                         >
@@ -220,7 +226,7 @@ function FollowingFeed() {
                                     </div>
                                 ) : (
                                     data.map((post) => (
-                                        <Link 
+                                        <Link
                                             key={post._id}
                                             to={`/discussion/${post._id}`}
                                             className="block bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
@@ -228,15 +234,20 @@ function FollowingFeed() {
                                             <div className="p-4 md:p-6">
                                                 {/* Post Header */}
                                                 <div className="flex items-start space-x-3">
-                                                    <img
-                                                        src={
-                                                            post.author && post.author.profilePic
-                                                                ? `${post.author.profilePic}`
-                                                                : DefaultPic
-                                                        }
-                                                        className="h-10 w-10 md:h-12 md:w-12 rounded-full object-cover border-2 border-gray-100"
-                                                        alt="profile"
-                                                    />
+                                                    <Link 
+                                                        to={`/profile/${post.author.uid}`}
+                                                        onClick={(e) => e.stopPropagation()}
+                                                    >
+                                                        <img
+                                                            src={
+                                                                post.author && post.author.profilePic
+                                                                    ? post.author.profilePic
+                                                                    : DefaultPic
+                                                            }
+                                                            className="h-10 w-10 md:h-12 md:w-12 rounded-full object-cover border-2 border-gray-100 cursor-pointer hover:opacity-80 transition-opacity"
+                                                            alt="profile"
+                                                        />
+                                                    </Link>
                                                     <div className="flex-1 min-w-0">
                                                         <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
                                                             <h3 className="font-semibold text-sm md:text-base text-gray-900 truncate">
@@ -247,7 +258,7 @@ function FollowingFeed() {
                                                                 {new Date(post.createdAt).toLocaleDateString()}
                                                             </span>
                                                         </div>
-                                                        
+
                                                         {/* Engagement Stats in Header */}
                                                         <div className="flex items-center space-x-3 md:space-x-4 mt-1">
                                                             <div className="flex items-center space-x-1 text-xs md:text-sm text-gray-500">

@@ -12,6 +12,7 @@ import followRoutes from './routes/follow.js';
 import tagRoutes from './routes/tags.js';
 import trendRoutes from './routes/trends.js';
 import contactRoutes from './routes/contact.js';
+import getFollowersRoutes from './routes/getFollowers.js';
 import cors from 'cors';
 import path from "path";
 import { fileURLToPath } from "url";
@@ -42,6 +43,7 @@ app.use('/api/follow', followRoutes);
 app.use('/api/tags', tagRoutes);
 app.use('/api/trends', trendRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/followers', getFollowersRoutes);  
 
 // For ES Modules __dirname fix
 // const __filename = fileURLToPath(import.meta.url);

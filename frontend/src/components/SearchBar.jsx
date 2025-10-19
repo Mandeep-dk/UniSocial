@@ -25,7 +25,7 @@ function SearchBar({ onSearchStateChange, onSearchResult }) {
       try {
         const res = await search(searchValue);
         setResults(res.data);
-
+        // console.log(res.data);
         if (res.data.length > 0) {
           setPostId(res.data[0]._id); // ✅ first match
         } else {

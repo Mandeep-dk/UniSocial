@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { getUsername, userPosts, deletePost, followUser, isfollow, unfollowUser } from '../api';
+import { getUsername, userPosts, deletePost, followUser, isfollow, unfollowUser, getFollowers, getFollowing } from '../api';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import DefaultPic from '../assets/image.png';
@@ -30,6 +30,10 @@ function ProfilePage() {
   const [following, setFollowing] = useState([]);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState(null);
+  const [followersMenu, setFollowersMenu] = useState(false);
+  const [followingMenu, setFollowingMenu] = useState(false);
+  const [followersList, setFollowersList] = useState([]);
+  const [followingList, setFollowingList] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,6 +52,13 @@ function ProfilePage() {
     const fetchUser = async () => {
       try {
         const res = await getUsername(uid);
+        const followersRes = await getFollowers(uid);
+        console.log(followersRes);
+        setFollowersList(followersRes.data);
+
+        const followingRes = await getFollowing(uid);
+        console.log(followingRes)
+        setFollowingList(followingRes.data);
 
         setData(res.data);
         setProfilePic(res.data.profilePic);
@@ -109,10 +120,16 @@ function ProfilePage() {
     }
   }
 
+  const handleFollowers = async () => {
+
+
+
+  }
+
   return (
     <>
       <Header />
-      
+
       {/* Hero Section with Gradient */}
       <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 w-full h-48"></div>
 
@@ -144,14 +161,13 @@ function ProfilePage() {
                       <p className="text-slate-600 mt-1">{branch} • {year} year</p>
                     )}
                   </div>
-                  
+
                   {!ownProfile && (
-                    <button 
-                      className={`px-6 py-2.5 rounded-lg font-medium transition-all duration-200 ${
-                        follow 
-                          ? 'bg-slate-100 text-slate-700 hover:bg-slate-200' 
-                          : 'bg-slate-900 text-white hover:bg-slate-800 shadow-md'
-                      }`}
+                    <button
+                      className={`px-6 py-2.5 rounded-lg font-medium transition-all duration-200 ${follow
+                        ? 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                        : 'bg-slate-900 text-white hover:bg-slate-800 shadow-md'
+                        }`}
                       onClick={handleFollow}
                     >
                       {follow ? "Following" : "Follow"}
@@ -159,15 +175,122 @@ function ProfilePage() {
                   )}
                 </div>
 
+                {followersMenu && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4">
+                    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[600px] flex flex-col">
+                      {/* Header */}
+                      <div className="flex items-center justify-between p-6 border-b border-slate-200">
+                        <h3 className="text-xl font-bold text-slate-900">Followers</h3>
+                        <button
+                          onClick={() => setFollowersMenu(false)}
+                          className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+                        >
+                          <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+
+                      {/* List */}
+                      <div className="overflow-y-auto flex-1 p-4">
+                        {followersList?.length > 0 ? (
+                          <div className="space-y-2">
+                            {followersList.map((item) => (
+                              <div
+                                key={item.uid}
+                                onClick={() => {
+                                  navigate(`/profile/${item.uid}`);
+                                  setFollowersMenu(false);
+                                }}
+                                className="flex items-center gap-3 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition-all duration-200"
+                              >
+                                <img
+                                  src={item.profilePic ? `http://localhost:5000/${item.profilePic}` : DefaultPic}
+                                  alt={item.username}
+                                  className="w-12 h-12 rounded-full object-cover ring-2 ring-slate-100"
+                                />
+                                <div className="flex-1">
+                                  <p className="font-medium text-slate-900">{item.username}</p>
+                                  {item.bio && (
+                                    <p className="text-sm text-slate-500 truncate">{item.bio}</p>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="text-center py-12">
+                            <p className="text-slate-500">No followers yet</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {followingMenu && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4">
+                    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[600px] flex flex-col">
+                      {/* Header */}
+                      <div className="flex items-center justify-between p-6 border-b border-slate-200">
+                        <h3 className="text-xl font-bold text-slate-900">Following</h3>
+                        <button
+                          onClick={() => setFollowingMenu(false)}
+                          className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+                        >
+                          <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+
+                      {/* List */}
+                      <div className="overflow-y-auto flex-1 p-4">
+                        {followingList?.length > 0 ? (
+                          <div className="space-y-2">
+                            {followingList.map((item) => (
+                              <div
+                                key={item.uid}
+                                onClick={() => {
+                                  navigate(`/profile/${item.uid}`);
+                                  setFollowingMenu(false);
+                                }}
+                                className="flex items-center gap-3 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition-all duration-200"
+                              >
+                                <img
+                                  src={item.profilePic ? `http://localhost:5000/${item.profilePic}` : DefaultPic}
+                                  alt={item.username}
+                                  className="w-12 h-12 rounded-full object-cover ring-2 ring-slate-100"
+                                />
+                                <div className="flex-1">
+                                  <p className="font-medium text-slate-900">{item.username}</p>
+                                  {item.bio && (
+                                    <p className="text-sm text-slate-500 truncate">{item.bio}</p>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="text-center py-12">
+                            <p className="text-slate-500">Not following anyone yet</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+
                 {/* Stats */}
                 <div className="flex gap-8 mt-6 justify-center sm:justify-start">
                   <div className="text-center sm:text-left">
                     <p className="text-2xl font-bold text-slate-900">{follower.length}</p>
-                    <p className="text-sm text-slate-600">Followers</p>
+                    <button onClick={() => setFollowersMenu(prev=>!prev)} className="text-sm text-slate-600 cursor-pointer">Followers</button>
                   </div>
                   <div className="text-center sm:text-left">
                     <p className="text-2xl font-bold text-slate-900">{following.length}</p>
-                    <p className="text-sm text-slate-600">Following</p>
+                    <button onClick={() => setFollowingMenu(prev=>!prev)} className="text-sm text-slate-600 cursor-pointer">Following</button>
                   </div>
                   <div className="text-center sm:text-left">
                     <p className="text-2xl font-bold text-slate-900">{posts.length}</p>
@@ -234,13 +357,13 @@ function ProfilePage() {
         {/* Posts Section */}
         <div className="pb-12">
           <h2 className="text-2xl font-bold text-slate-900 mb-6">Posts</h2>
-          
+
           {posts.length > 0 ? (
             <div className="space-y-4">
               {posts.map((post) => (
-                <div 
-                  key={post._id} 
-                  onClick={() => navigate(`/discussion/${post._id}`)} 
+                <div
+                  key={post._id}
+                  onClick={() => navigate(`/discussion/${post._id}`)}
                   className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-6 cursor-pointer border border-slate-100"
                 >
                   <div className="flex items-start justify-between mb-4">
@@ -257,8 +380,8 @@ function ProfilePage() {
                       <div>
                         <p className="font-medium text-slate-900">{post.author.username}</p>
                         <p className="text-sm text-slate-500">
-                          {new Date(post.createdAt).toLocaleDateString('en-US', { 
-                            month: 'short', 
+                          {new Date(post.createdAt).toLocaleDateString('en-US', {
+                            month: 'short',
                             day: 'numeric',
                             year: 'numeric'
                           })}

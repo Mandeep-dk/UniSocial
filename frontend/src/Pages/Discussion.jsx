@@ -38,7 +38,7 @@ function Discussion() {
         const res1 = await trendingTags();
         const res2 = await topPosts();
         const res3 = await topCommented();
-
+        
         setTrendingTagsR(res1.data);
 
         setTopPostsR(res2.data);
@@ -58,28 +58,26 @@ function Discussion() {
         onSearchStateChange={setIsSearchActive}
         onSearchResult={setSearchResult}
       />
-      
+
       <div className="max-w-8xl mx-auto px-3 sm:px-4 lg:px-8">
         {/* Navigation Tabs */}
         <div className="py-4 sm:py-6">
           <nav className="flex space-x-1 bg-white rounded-lg p-1 shadow-sm border border-gray-200">
-            <Link 
-              to={`/Discussion`} 
-              className={`flex-1 text-center py-2 sm:py-2.5 px-2 sm:px-4 rounded-md font-medium text-xs sm:text-sm transition-colors ${
-                location.pathname === "/Discussion" 
-                  ? "bg-rose-500 text-white shadow-sm" 
+            <Link
+              to={`/Discussion`}
+              className={`flex-1 text-center py-2 sm:py-2.5 px-2 sm:px-4 rounded-md font-medium text-xs sm:text-sm transition-colors ${location.pathname === "/Discussion"
+                  ? "bg-rose-500 text-white shadow-sm"
                   : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-              }`}
+                }`}
             >
               All Discussions
             </Link>
-            <Link 
-              to={`/Feed`} 
-              className={`flex-1 text-center py-2 sm:py-2.5 px-2 sm:px-4 rounded-md font-medium text-xs sm:text-sm transition-colors ${
-                location.pathname === "/Feed" 
-                  ? "bg-blue-600 text-white shadow-sm" 
+            <Link
+              to={`/Feed`}
+              className={`flex-1 text-center py-2 sm:py-2.5 px-2 sm:px-4 rounded-md font-medium text-xs sm:text-sm transition-colors ${location.pathname === "/Feed"
+                  ? "bg-blue-600 text-white shadow-sm"
                   : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-              }`}
+                }`}
             >
               Following
             </Link>
@@ -103,13 +101,16 @@ function Discussion() {
             {/* Search Result */}
             {isSearchActive && searchResult && (
               <div className="mb-4 sm:mb-6">
-                <Link 
-                  to={`/discussion/${searchResult._id}`} 
+                <Link
+                  to={`/discussion/${searchResult._id}`}
                   className="block bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
                 >
                   <div className="p-4 sm:p-6">
                     {/* Post Header */}
+
                     <div className="flex items-start space-x-2 sm:space-x-3">
+                      <Link  to={`/profile/${searchResult.author.uid}`} onClick={(e)=>{e.stopPropagation(); }}>
+                      
                       <img
                         src={
                           searchResult.author && searchResult.author.profilePic
@@ -119,6 +120,7 @@ function Discussion() {
                         className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover border-2 border-gray-100"
                         alt="profile"
                       />
+                      </Link>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center space-x-2">
                           <h3 className="font-semibold text-sm sm:text-base text-gray-900 truncate">
@@ -193,7 +195,7 @@ function Discussion() {
                   </div>
                 ) : (
                   posts.map((post) => (
-                    <Link 
+                    <Link
                       key={post._id}
                       to={`/discussion/${post._id}`}
                       className="block bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
@@ -201,15 +203,20 @@ function Discussion() {
                       <div className="p-4 sm:p-6">
                         {/* Post Header */}
                         <div className="flex items-start space-x-2 sm:space-x-3">
-                          <img
-                            src={
-                              post.author && post.author.profilePic
-                                ? `${post.author.profilePic}`
-                                : DefaultPic
-                            }
-                            className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover border-2 border-gray-100"
-                            alt="profile"
-                          />
+                          <Link
+                            to={`/profile/${post.author.uid}`}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <img
+                              src={
+                                post.author?.profilePic
+                                  ? post.author.profilePic
+                                  : DefaultPic
+                              }
+                              className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover border-2 border-gray-100"
+                              alt="profile"
+                            />
+                          </Link>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center space-x-2">
                               <h3 className="font-semibold text-sm sm:text-base text-gray-900 truncate">
@@ -224,12 +231,12 @@ function Discussion() {
                                 {new Date(post.createdAt).toLocaleDateString()}
                               </span>
                             </div>
-                            
+
                             {/* Date for mobile */}
                             <div className="text-xs text-gray-500 sm:hidden mt-0.5">
                               {new Date(post.createdAt).toLocaleDateString()}
                             </div>
-                            
+
                             {/* Engagement Stats in Header */}
                             <div className="flex items-center space-x-3 sm:space-x-4 mt-1">
                               <div className="flex items-center space-x-1 text-xs sm:text-sm text-gray-500">

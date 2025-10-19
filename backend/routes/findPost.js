@@ -7,7 +7,7 @@ router.get("/:id", async(req, res)=>{
     
     try{
         const id = req.params.id;
-        const post=await Post.findById(id).populate("author", "username profilePic");
+        const post=await Post.findById(id).populate("author", "uid username profilePic");
 
         if(!post){
             return res.status(404).json({message:"Post not found"});

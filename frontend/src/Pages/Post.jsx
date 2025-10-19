@@ -4,7 +4,7 @@ import { auth } from '../auth/firebase';
 import Header from '../components/Header';
 import { ToastContainer, toast } from 'react-toastify';
 import { FileText, File } from 'lucide-react';
-
+import { Navigate, useNavigate } from 'react-router-dom';
 function Post() {
   const [postTitle, setPostTitle] = useState('');
   const [postContent, setPostContent] = useState('');
@@ -14,7 +14,7 @@ function Post() {
   const [tags, setTags] = useState([]);
   const [inputTagValue, setInputTagValue] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const navigate=useNavigate();
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -53,6 +53,8 @@ function Post() {
       setPreviewImage([]);
       setFile([]);
       setTags([]);
+
+      navigate("/discussion")
     } catch (err) {
       console.error("Failed to create post: ", err.message);
     } finally {
