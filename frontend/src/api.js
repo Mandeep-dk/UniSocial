@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // 🔹 Base URL automatically changes based on environment
-const BASE_URL =  'http://localhost:5000';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 //Comments
 const commentsAPI = axios.create({ baseURL: `${BASE_URL}/api/comments` });

@@ -205,7 +205,7 @@ function ProfilePage() {
                                 className="flex items-center gap-3 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition-all duration-200"
                               >
                                 <img
-                                  src={item.profilePic ? `http://localhost:5000/${item.profilePic}` : DefaultPic}
+                                  src={item.profilePic ? item.profilePic : DefaultPic}
                                   alt={item.username}
                                   className="w-12 h-12 rounded-full object-cover ring-2 ring-slate-100"
                                 />
@@ -258,7 +258,7 @@ function ProfilePage() {
                                 className="flex items-center gap-3 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition-all duration-200"
                               >
                                 <img
-                                  src={item.profilePic ? `http://localhost:5000/${item.profilePic}` : DefaultPic}
+                                  src={item.profilePic ? `${item.profilePic}` : DefaultPic}
                                   alt={item.username}
                                   className="w-12 h-12 rounded-full object-cover ring-2 ring-slate-100"
                                 />
