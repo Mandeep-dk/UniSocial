@@ -61,7 +61,7 @@ function Header() {
             <div className='flex flex-row items-center gap-2 sm:gap-3'>
                 <button 
                     className='flex flex-row items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2 bg-rose-500 text-white rounded-lg sm:rounded-2xl hover:bg-rose-600 transition-colors' 
-                    onClick={() => navigate("/Post")}
+                    onClick={() => navigate("/post")}
                 >
                     <Plus className="h-4 w-4 sm:h-5 sm:w-5" />
                     <span className="hidden sm:inline text-sm sm:text-base">Create post</span>
@@ -88,7 +88,7 @@ function Header() {
                             <button 
                                 className='flex flex-row items-center gap-2 w-full text-left text-sm sm:text-base' 
                                 onClick={() => {
-                                    navigate(`/Discussion`);
+                                    navigate(`/discussion`);
                                     setOpenDropDown(false);
                                 }}
                             >
@@ -100,7 +100,7 @@ function Header() {
                             <button 
                                 className='flex flex-row items-center gap-2 w-full text-left text-sm sm:text-base' 
                                 onClick={() => {
-                                    navigate(`/Post`);
+                                    navigate(`/post`);
                                     setOpenDropDown(false);
                                 }}
                             >

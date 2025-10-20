@@ -85,7 +85,7 @@ const Verify = () => {
                         <DocumentMagnifyingGlassIcon className="h-8 w-8 text-rose-500" />
                     </div>
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">Student ID Verification</h1>
-                    <p className="text-gray-600">Upload an image of your student ID barcode to verify your identity</p>
+                    <p className="text-gray-600">Upload an image of the back of your university ID to verify your identity</p>
                 </div>
 
                 {/* Main Card */}
@@ -201,18 +201,15 @@ const Verify = () => {
                         <ul className="text-sm text-gray-600 space-y-2">
                             <li className="flex items-start space-x-2">
                                 <span className="font-medium text-gray-400">1.</span>
-                                <span>Ensure your student ID barcode is clearly visible and well-lit</span>
+                                <span>Ensure your university ID barcode is clearly visible and well-lit</span>
                             </li>
+                        
                             <li className="flex items-start space-x-2">
                                 <span className="font-medium text-gray-400">2.</span>
-                                <span>The barcode should follow the format: ADTU/[0-1]/YYYY-YY/XXXX/###</span>
-                            </li>
-                            <li className="flex items-start space-x-2">
-                                <span className="font-medium text-gray-400">3.</span>
                                 <span>Upload the image and wait for the verification process to complete</span>
                             </li>
                             <li className="flex items-start space-x-2">
-                                <span className="font-medium text-gray-400">4.</span>
+                                <span className="font-medium text-gray-400">3.</span>
                                 <span>Once verified, click "Verify & Continue" to proceed</span>
                             </li>
                         </ul>
@@ -222,7 +219,7 @@ const Verify = () => {
                 {/* Help Section */}
                 <div className="mt-8 text-center">
                     <p className="text-sm text-gray-500">
-                        Having trouble? Make sure your image is clear and the barcode is not damaged or obscured.
+                        Having trouble? Try downloading your ID and then uploading it again.
                     </p>
                 </div>
             </div>

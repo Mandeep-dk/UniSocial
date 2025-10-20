@@ -93,7 +93,7 @@ function FollowingFeed() {
                 <div className="py-4 md:py-6">
                     <nav className="flex space-x-1 bg-white rounded-lg p-1 shadow-sm border border-gray-200">
                         <Link
-                            to={`/Discussion`}
+                            to={`/discussion`}
                             className="flex-1 text-center py-2 md:py-2.5 px-2 md:px-4 rounded-md font-medium text-xs md:text-sm transition-colors text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                         >
                             All Discussions

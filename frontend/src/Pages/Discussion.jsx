@@ -73,7 +73,7 @@ function Discussion() {
               All Discussions
             </Link>
             <Link
-              to={`/Feed`}
+              to={`/feed`}
               className={`flex-1 text-center py-2 sm:py-2.5 px-2 sm:px-4 rounded-md font-medium text-xs sm:text-sm transition-colors ${location.pathname === "/Feed"
                   ? "bg-blue-600 text-white shadow-sm"
                   : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"

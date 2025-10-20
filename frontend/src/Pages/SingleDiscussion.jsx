@@ -116,7 +116,7 @@ const SingleDiscussion = () => {
               {post.tags.map((tag, index) => (
                 <button
                   key={index}
-                  className="px-3 py-1 rounded text-blue-900 cursor-pointer"
+                  className="py-1 rounded text-blue-900 cursor-pointer"
                   onClick={() => navigate(`/tags/${tag}`)}
                 >
                   #{tag}
