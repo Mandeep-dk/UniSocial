@@ -137,7 +137,7 @@ function Discussion() {
                     {/* Post Content */}
                     <div className="mt-3 sm:mt-4">
                       <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{searchResult.title}</h2>
-                      <p className="text-sm sm:text-base text-gray-700 line-clamp-3">{searchResult.content}</p>
+                      <p className="text-sm sm:text-base text-gray-700 line-clamp-3 truncate">{searchResult.content}</p>
                     </div>
 
                     {/* Tags */}
@@ -256,7 +256,7 @@ function Discussion() {
                           <h2 className="text-base sm:text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors">
                             {post.title}
                           </h2>
-                          <p className="text-sm sm:text-base mt-2 text-gray-900 hover:text-blue-600 transition-colors">
+                          <p className="text-sm sm:text-base mt-2 text-gray-900 hover:text-blue-600 truncate transition-colors">
                             {post.content}
                           </p>
 
@@ -332,7 +332,7 @@ function Discussion() {
                       {topPostsR.map((post, index) => (
                         <li key={index}>
                           <button
-                            onClick={() => navigate(`/Discussion/${post._id}`)}
+                            onClick={() => navigate(`/discussion/${post._id}`)}
                             className="text-left w-full p-2 rounded-md hover:bg-gray-50 transition-colors"
                           >
                             <p className="text-xs lg:text-sm font-medium text-gray-900 line-clamp-2 hover:text-blue-600">
@@ -362,7 +362,7 @@ function Discussion() {
                       {topCommentedR.map((post, index) => (
                         <li key={index}>
                           <button
-                            onClick={() => navigate(`/Discussion/${post._id}`)}
+                            onClick={() => navigate(`/discussion/${post._id}`)}
                             className="text-left w-full p-2 rounded-md hover:bg-gray-50 transition-colors"
                           >
                             <p className="text-xs lg:text-sm font-medium text-gray-900 line-clamp-2 hover:text-blue-600">

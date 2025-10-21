@@ -11,7 +11,6 @@ import { MagnifyingGlassIcon, FireIcon, HandThumbUpIcon, ChatBubbleBottomCenterT
 function FollowingFeed() {
     const [loggedInUid, setLoggedInUid] = useState(null);
     const [followingUid, setFollowingUid] = useState([])
-    const [followingId, setFollowingId] = useState(null);
     const [data, setData] = useState([]);
     const [topPostsR, setTopPostsR] = useState([]);
     const [trendingTagsR, setTrendingTagsR] = useState([]);
@@ -33,34 +32,40 @@ function FollowingFeed() {
         return () => unsubscribe();
     }, []);
 
-    useEffect(() => {
-        const fetchPosts = (async () => {
-            try {
-                if (followingUid.length > 0) {
-                    const res = await getUsername(followingUid);
-                    setFollowingId(res.data._id);
-                }
-            } catch (err) {
-                console.error(err.message);
+   useEffect(() => {
+    const fetchPosts = async () => {
+        try {
+            if (followingUid.length > 0) {
+                // Fetch posts from all followed users
+                const postsPromises = followingUid.map(async (uid) => {
+                    try {
+                        const userRes = await getUsername(uid);
+                        const postsRes = await userPosts(userRes.data._id);
+                        return postsRes.data;
+                    } catch (err) {
+                        console.error(`Error fetching posts for uid ${uid}:`, err.message);
+                        return [];
+                    }
+                });
+                
+                const postsResults = await Promise.all(postsPromises);
+                
+                // Flatten and sort by date (newest first)
+                const allPosts = postsResults
+                    .flat()
+                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                
+                setData(allPosts);
+            } else {
+                setData([]);
             }
-        })
-        fetchPosts()
-    }, [followingUid])
-
-    useEffect(() => {
-        const fetchPosts = (async () => {
-            try {
-                if (followingId) {
-                    const res = await userPosts(followingId);
-                    setData(res.data);
-                    console.log(res.data)
-                }
-            } catch (err) {
-                console.error(err.message);
-            }
-        })
-        fetchPosts()
-    }, [followingId])
+        } catch (err) {
+            console.error("Error fetching following posts:", err.message);
+        }
+    };
+    
+    fetchPosts();
+}, [followingUid]);
 
     useEffect(() => {
         const fetchR = async () => {
@@ -162,7 +167,7 @@ function FollowingFeed() {
                                         {/* Post Content */}
                                         <div className="mt-3 md:mt-4">
                                             <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-2">{searchResult.title}</h2>
-                                            <p className="text-sm md:text-base text-gray-700 line-clamp-3">{searchResult.content}</p>
+                                            <p className="text-sm md:text-base text-gray-700 line-clamp-3 truncate">{searchResult.content}</p>
                                         </div>
 
                                         {/* Tags */}
@@ -278,7 +283,7 @@ function FollowingFeed() {
                                                     <h2 className="text-base md:text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors mb-2">
                                                         {post.title}
                                                     </h2>
-                                                    <p className="text-sm md:text-base text-gray-700 line-clamp-3">{post.content}</p>
+                                                    <p className="text-sm md:text-base text-gray-700 line-clamp-3 truncate">{post.content}</p>
                                                 </div>
 
                                                 {/* Tags */}

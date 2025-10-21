@@ -31,7 +31,7 @@ const Verify = () => {
 
     const verify = () => {
         if (validate(result)) {
-            navigate("/Profile", { replace: true }); // Add replace: true here too
+            navigate("/profile", { replace: true }); // Add replace: true here too
         }
     }
 

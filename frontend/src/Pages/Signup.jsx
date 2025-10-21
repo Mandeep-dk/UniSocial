@@ -19,7 +19,7 @@ const Signup = () => {
         toast.success("You've been logged in!", { autoClose: 2000 });
         
         setMessage("Signup successful!");
-        navigate("/Verify", { replace: true }); // ADD replace: true
+        navigate("/verify", { replace: true }); // ADD replace: true
 
     } catch (error) {
         setMessage(error.message);
@@ -38,13 +38,13 @@ const Signup = () => {
         const res = await getUsername(user.uid);
         
         if (res && res.data && res.data.profileCompleted) {
-          navigate("/Discussion", { replace: true }); // User has completed profile
+          navigate("/discussion", { replace: true }); // User has completed profile
         } else {
-          navigate("/Verify", { replace: true }); // New user or incomplete profile
+          navigate("/verify", { replace: true }); // New user or incomplete profile
         }
       } catch (error) {
         // If profile doesn't exist (new Google user), go to Verify
-        navigate("/Verify", { replace: true });
+        navigate("/verify", { replace: true });
       }
     } catch (error) {
       console.error("Google Sign-In Error:", error.message);

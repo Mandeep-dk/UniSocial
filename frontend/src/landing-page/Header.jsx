@@ -44,13 +44,13 @@ function Header() {
                 <div className='hidden md:flex space-x-3 lg:space-x-4'>
                     <button 
                         className='bg-rose-500 px-4 lg:px-6 py-2 rounded-lg text-white hover:bg-rose-600 transition text-sm lg:text-base' 
-                        onClick={() => navigate("/SignIn")}
+                        onClick={() => navigate("/signIn")}
                     >
                         LogIn
                     </button>
                     <button 
                         className='border border-gray-300 px-4 lg:px-6 py-2 rounded-lg hover:bg-gray-50 transition text-sm lg:text-base'
-                        onClick={() => navigate("/Signup")}
+                        onClick={() => navigate("/signup")}
                     >
                         SignUp
                     </button>
@@ -101,7 +101,7 @@ function Header() {
                             <button 
                                 className='bg-rose-500 py-2 rounded-lg text-white hover:bg-rose-600 transition' 
                                 onClick={() => {
-                                    navigate("/SignIn");
+                                    navigate("/signIn");
                                     setIsMenuOpen(false);
                                 }}
                             >
@@ -110,7 +110,7 @@ function Header() {
                             <button 
                                 className='border border-gray-300 py-2 rounded-lg hover:bg-gray-50 transition'
                                 onClick={() => {
-                                    navigate("/Signup");
+                                    navigate("/signup");
                                     setIsMenuOpen(false);
                                 }}
                             >

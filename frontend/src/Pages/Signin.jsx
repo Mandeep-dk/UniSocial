@@ -19,7 +19,7 @@ function Signin() {
             .then((userCredential) => {
                 const user = userCredential.user;
                 toast.success("You've been logged in!", { autoClose: 2000 });
-                navigate("/Discussion", { replace: true }); // ADD replace: true
+                navigate("/discussion", { replace: true }); // ADD replace: true
             })
     } catch (error) {
         setMessage(error.message);
@@ -38,13 +38,13 @@ function Signin() {
       const res = await getUsername(user.uid);
 
       if (res && res.data && res.data.profileCompleted) {
-        navigate("/Discussion", { replace: true });
+        navigate("/discussion", { replace: true });
       } else {
-        navigate("/Verify", { replace: true });
+        navigate("/verify", { replace: true });
       }
     } catch (error) {
       // If profile doesn't exist, redirect to Verify
-      navigate("/Verify", { replace: true });
+      navigate("/verify", { replace: true });
     }
   } catch (error) {
     console.error("Google Sign-In Error:", error.message);

@@ -40,6 +40,7 @@ router.patch('/reaction/:id', async (req, res) => {
 router.delete("/deletePost/:id", async(req, res)=>{
     try{
         const deletedPost = await Post.findByIdAndDelete(req.params.id);
+        console.log("deleting", req.params.id)
         if(!deletedPost){
             return res.status(404).json({message: "Post not found"})
         }

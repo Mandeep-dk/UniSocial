@@ -53,12 +53,18 @@ function ProfilePage() {
       try {
         const res = await getUsername(uid);
         const followersRes = await getFollowers(uid);
-        console.log(followersRes);
-        setFollowersList(followersRes.data);
+        
+        console.log(followersRes)
+
+        // Filter out deleted users (users with deleted: true flag)
+        const validFollowers = followersRes.data.filter(user => user && user.username!=="[deleted]");
+        setFollowersList(validFollowers);
 
         const followingRes = await getFollowing(uid);
-        console.log(followingRes)
-        setFollowingList(followingRes.data);
+        
+        // Filter out deleted users
+        const validFollowing = followingRes.data.filter(user => user && user.username!=="[deleted]");
+        setFollowingList(validFollowing);
 
         setData(res.data);
         setProfilePic(res.data.profilePic);
@@ -71,8 +77,10 @@ function ProfilePage() {
         setBranch(res.data.branch);
         setYear(res.data.year);
         setIds(res.data._id);
-        setFollowing(res.data.following);
-        setFollower(res.data.followers);
+        
+        // Use filtered lists for counts
+        setFollowing(validFollowing);
+        setFollower(validFollowers);
       } catch (err) {
         console.error("Error occurred while fetching user:", err.message);
       }
@@ -102,6 +110,7 @@ function ProfilePage() {
         const res = await isfollow(loggedInUid, uid);
         setFollow(res.data.isFollowing);
       }
+
       if (loggedInUid && uid) {
         checkFollowStatus();
       }
@@ -120,12 +129,6 @@ function ProfilePage() {
     }
   }
 
-  const handleFollowers = async () => {
-
-
-
-  }
-
   return (
     <>
       <Header />
@@ -139,9 +142,9 @@ function ProfilePage() {
           <div className="bg-white rounded-2xl shadow-xl p-8">
             {/* Profile Picture and Basic Info */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
-              {profilePic ? (
+              {data?.profilePic ? (
                 <img
-                  src={`${data.profilePic}`}
+                  src={data.profilePic}
                   className="border-4 border-white rounded-full h-32 w-32 object-cover shadow-lg ring-4 ring-slate-100"
                   alt="Profile"
                 />
@@ -158,7 +161,7 @@ function ProfilePage() {
                   <div>
                     <h1 className="text-3xl font-bold text-slate-900">{username}</h1>
                     {branch && year && (
-                      <p className="text-slate-600 mt-1">{branch} • {year} year</p>
+                      <p className="text-slate-600 mt-1">{branch} • {year}</p>
                     )}
                   </div>
 
@@ -281,16 +284,15 @@ function ProfilePage() {
                   </div>
                 )}
 
-
                 {/* Stats */}
                 <div className="flex gap-8 mt-6 justify-center sm:justify-start">
                   <div className="text-center sm:text-left">
                     <p className="text-2xl font-bold text-slate-900">{follower.length}</p>
-                    <button onClick={() => setFollowersMenu(prev=>!prev)} className="text-sm text-slate-600 cursor-pointer">Followers</button>
+                    <button onClick={() => setFollowersMenu(prev => !prev)} className="text-sm text-slate-600 cursor-pointer">Followers</button>
                   </div>
                   <div className="text-center sm:text-left">
                     <p className="text-2xl font-bold text-slate-900">{following.length}</p>
-                    <button onClick={() => setFollowingMenu(prev=>!prev)} className="text-sm text-slate-600 cursor-pointer">Following</button>
+                    <button onClick={() => setFollowingMenu(prev => !prev)} className="text-sm text-slate-600 cursor-pointer">Following</button>
                   </div>
                   <div className="text-center sm:text-left">
                     <p className="text-2xl font-bold text-slate-900">{posts.length}</p>
@@ -405,8 +407,9 @@ function ProfilePage() {
                   </div>
 
                   <h3 className="text-xl font-semibold text-slate-900 mb-2">{post.title}</h3>
-                  <p className="text-slate-700 leading-relaxed mb-4">{post.content}</p>
-
+                  <div className="text-gray-700 text-base leading-relaxed whitespace-pre-wrap line-clamp-3 break-words truncate">
+                    {post.content}
+                  </div>
                   <div className="flex items-center gap-6 text-slate-600">
                     <div className="flex items-center gap-2">
                       <span>👍</span>
@@ -454,8 +457,8 @@ function ProfilePage() {
               </button>
               <button
                 className="flex-1 px-6 py-3 rounded-xl bg-red-600 text-white font-medium hover:bg-red-700 transition-all duration-200 shadow-lg hover:shadow-xl"
-                onClick={() => {
-                  deletePost(selectedPostId);
+                onClick={async() => {
+                  await deletePost(selectedPostId);
                   setDeleteConfirm(false);
                   window.location.reload();
                 }}

@@ -181,7 +181,7 @@ const CommentSection = ({ postId, currentUser }) => {
                     <button 
                         onClick={handleComment} 
                         disabled={!content.trim() || !currentUserData || loading}
-                        className="mt-2 px-4 py-2 bg-rose-400 text-white rounded hover:bg-rose-500 disabled:bg-rose-300 disabled:cursor-not-allowed transition-colors"
+                        className="mt-2 px-4 py-2 bg-rose-500 text-white rounded hover:bg-rose-500 disabled:bg-rose-300 disabled:cursor-not-allowed transition-colors"
                     >
                         {loading ? 'Posting...' : 'Comment'}
                     </button>

@@ -44,7 +44,7 @@ function Profile({ onProfileComplete }) {
       if (onProfileComplete) {
         await onProfileComplete();
       }
-      navigate("/Discussion", { replace: true });
+      navigate("/discussion", { replace: true });
     } else {
       toast.error("Username is already taken", { autoClose: 2000 });
     }
@@ -64,7 +64,7 @@ function Profile({ onProfileComplete }) {
           {/* Username */}
           <div>
             <label className="block mb-1 text-sm font-semibold text-gray-700">
-              Username
+              Username*
             </label>
             <input
               type="text"
@@ -78,7 +78,7 @@ function Profile({ onProfileComplete }) {
           {/* Branch */}
           <div>
             <label className="block mb-1 text-sm font-semibold text-gray-700">
-              Branch
+              Branch*
             </label>
             <input
               type="text"
@@ -91,7 +91,7 @@ function Profile({ onProfileComplete }) {
           {/* Year */}
           <div>
             <label className="block mb-1 text-sm font-semibold text-gray-700">
-              Year
+              Year*
             </label>
             <input
               type="text"
@@ -104,7 +104,7 @@ function Profile({ onProfileComplete }) {
           {/* Interests */}
           <div>
             <label className="block mb-1 text-sm font-semibold text-gray-700">
-              Interests
+              Interests*
             </label>
             <input
               type="text"

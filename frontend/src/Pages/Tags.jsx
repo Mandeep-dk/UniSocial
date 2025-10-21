@@ -45,7 +45,7 @@ function Tags() {
                             </div>
 
                             {/* Post Title */}
-                            <Link to={`/Discussion/${post._id}`} className="cursor-pointer text-xl font-bold text-gray-800">{post.title}</Link>
+                            <Link to={`/discussion/${post._id}`} className="cursor-pointer text-xl font-bold text-gray-800">{post.title}</Link>
 
                             {/* Post Content */}
                             <p className="text-gray-700">{post.content}</p>

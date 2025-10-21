@@ -107,10 +107,9 @@ const SingleDiscussion = () => {
             <button className="mb-4 cursor-pointer block" onClick={() => navigate(`/profile/${post.author.uid}`)}>
               <p className="text-sm text-gray-600 font-medium">Posted by: {post.author.username}</p>
             </button>
-            <div className="text-gray-700 text-base leading-relaxed whitespace-pre-line">
-              {post.content}
-
-            </div>
+           <div className="text-gray-700 text-base leading-relaxed whitespace-pre-wrap break-words">
+  {post.content}
+</div>
 
             <div className="flex gap-2">
               {post.tags.map((tag, index) => (
@@ -131,7 +130,7 @@ const SingleDiscussion = () => {
                   <img
                     src={`${images[currentIndex]}`}
                     alt="slider"
-                    className="w-full h-[250px]  rounded-xl bg-gray-100"
+                    className="w-full h-[250px] object-contain rounded-xl bg-gray-100"
                   />
                 </div>
 
